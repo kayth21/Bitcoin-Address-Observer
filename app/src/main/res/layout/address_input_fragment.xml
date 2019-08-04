@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+    <!-- TITLE -->
+
+    <ImageView
+            android:id="@+id/addressInputFragmentAddressImageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="3dp"
+            android:src="@drawable/bitcoin_logo"
+            android:contentDescription="@string/address_header_image_content_description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+            android:id="@+id/addressInputFragmentTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textSize="18sp"
+            android:text="@string/bitcoin_address"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/addressInputFragmentAddressImageView"
+            app:layout_constraintTop_toTopOf="@+id/addressInputFragmentAddressImageView"
+            app:layout_constraintBottom_toBottomOf="@+id/addressInputFragmentAddressImageView"/>
+
+    <!-- BITCOIN ADDRESS -->
+
+    <TextView
+            android:id="@+id/addressInputFragmentAddressLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="4dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:text="@string/address"
+            app:layout_constraintTop_toBottomOf="@id/addressInputFragmentAddressImageView"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    <EditText
+            android:id="@+id/addressInputFragmentAddressField"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:enabled="false"
+            android:textSize="12sp"
+            android:importantForAutofill="no"
+            android:hint="@string/bitcoin_address_hint"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@+id/addressInputFragmentAddressLabel"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    <!-- ADDRESS MAPPING -->
+
+    <TextView
+            android:id="@+id/addressInputFragmentAddressMappingLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:text="@string/bitcoin_address_mapping"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/addressInputFragmentAddressField"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    <EditText
+            android:id="@+id/addressInputFragmentAddressMappingValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:enabled="false"
+            android:textSize="12sp"
+            android:inputType="text"
+            android:importantForAutofill="no"
+            android:hint="@string/bitcoin_address_mapping_hint"
+            app:layout_constraintTop_toBottomOf="@+id/addressInputFragmentAddressMappingLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/addressInputFragmentAddressField"/>
+
+    <!-- SAVE BUTTON -->
+
+    <Button
+            android:id="@+id/addressInputFragmentSaveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/save"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/addressInputFragmentAddressMappingValue"
+            app:layout_constraintEnd_toEndOf="@+id/addressInputFragmentAddressMappingValue"
+            app:layout_constraintTop_toBottomOf="@+id/addressInputFragmentAddressMappingValue"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

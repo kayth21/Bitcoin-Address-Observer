@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Bitcoin Address Observer</string>
+    <string name="address_header_image_content_description">Address input title image</string>
+    <string name="bitcoin_address">Bitcoin Address</string>
+    <string name="address">Address</string>
+    <string name="bitcoin_address_hint">bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq</string>
+    <string name="bitcoin_address_mapping">Mapping</string>
+    <string name="bitcoin_address_mapping_hint">e.g. Saving account</string>
+    <string name="save">Save</string>
+    <string name="invalid_bitcoin_address">Invalid Bitcoin address</string>
+    <string name="invalid_bitcoin_address_mapping">Invalid Bitcoin address mapping</string>
+    <string name="address_status_image_content_description">Address status image</string>
 </resources>
