@@ -1,5 +1,7 @@
 package com.ceaver.bao.addresses.list
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -87,6 +89,8 @@ class AddressListFragment : Fragment() {
             when (menuItem.itemId) {
                 AddressListAdapter.CONTEXT_MENU_EDIT_ITEM_ID -> showDialogFragment(AddressInputFragment(), AddressInputFragment.FRAGMENT_TAG, AddressInputFragment.ADDRESS_ID, selectedAddress.id)
                 AddressListAdapter.CONTEXT_MENU_DELETE_ITEM_ID -> AddressRepository.deleteAddressAsync(selectedAddress)
+                AddressListAdapter.CONTEXT_MENU_RESET_ITEM_ID -> AddressRepository.updateAddressAsync(selectedAddress.copyForReset())
+                AddressListAdapter.CONTEXT_MENU_SHOW_ITEM_ID -> startActivity( Intent(Intent.ACTION_VIEW, Uri.parse("https://oxt.me/address/${selectedAddress.value}")));
                 else -> throw IllegalStateException()
             }
         }

@@ -8,8 +8,8 @@
 
     <ImageView
             android:id="@+id/addressListRowStatusImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_marginTop="2dp"
             android:contentDescription="@string/address_status_image_content_description"
             app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +22,17 @@
             android:layout_marginStart="8dp"
             android:textSize="13sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/addressListRowStatusImage"
+            app:layout_constraintStart_toEndOf="@+id/addressListRowStatusImage"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/addressListRowTxoCountField"/>
+
+    <TextView
+            android:id="@+id/addressListRowTxoCountField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="13sp"
+            app:layout_constraintTop_toTopOf="@id/addressListRowMappingField"
             app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
@@ -31,8 +40,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="13sp"
-            app:layout_constraintTop_toBottomOf="@id/addressListRowMappingField"
-            app:layout_constraintStart_toStartOf="@id/addressListRowMappingField"
-            app:layout_constraintEnd_toEndOf="@id/addressListRowMappingField"/>
+            app:layout_constraintStart_toStartOf="@+id/addressListRowMappingField"
+            app:layout_constraintTop_toBottomOf="@+id/addressListRowMappingField"
+            app:layout_constraintEnd_toStartOf="@+id/addressListRowBalanceField" />
+
+    <TextView
+            android:id="@+id/addressListRowBalanceField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="@id/addressListRowTxoCountField"
+            app:layout_constraintTop_toBottomOf="@+id/addressListRowTxoCountField"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -48,7 +48,7 @@ object AddressRepository {
 
     fun insertAddress(address: Address): Long {
         val addressId = getAddressDao().insertAddress(address)
-        getEventbus().post(AddressEvents.Insert(listOf(addressId)))
+        getEventbus().post(AddressEvents.Insert(addressId))
         return addressId
     }
 
@@ -61,9 +61,9 @@ object AddressRepository {
     }
     // UPDATE ADDRESS //
 
-    fun updateAddress(address: Address): Long {
+    fun updateAddress(address: Address, suppressReload: Boolean = false): Long {
         getAddressDao().updateAddress(address)
-        getEventbus().post(AddressEvents.Update(listOf(address.id)))
+        getEventbus().post(AddressEvents.Update(address.id, suppressReload))
         return address.id
     }
 
@@ -77,10 +77,10 @@ object AddressRepository {
 
     // UPDATE ADDRESSES //
 
-    fun updateAddresses(addresses: List<Address>): List<Long> {
+    fun updateAddresses(addresses: List<Address>, suppressReload: Boolean = false): List<Long> {
         getAddressDao().updateAddresses(addresses)
         val ids = addresses.map { it.id }
-        getEventbus().post(AddressEvents.Update(ids))
+        getEventbus().post(AddressEvents.Update(suppressReload = suppressReload))
         return ids
     }
 
@@ -97,7 +97,7 @@ object AddressRepository {
 
     fun deleteAddress(address: Address): Long {
         getAddressDao().deleteAddress(address)
-        getEventbus().post(AddressEvents.Delete(listOf(address.id)))
+        getEventbus().post(AddressEvents.Delete(address.id))
         return address.id
     }
 

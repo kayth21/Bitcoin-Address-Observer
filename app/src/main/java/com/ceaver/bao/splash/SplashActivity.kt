@@ -5,19 +5,20 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.ceaver.bao.MainActivity
 import com.ceaver.bao.R
+import com.ceaver.bao.threading.BackgroundThreadExecutor
 
 class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.splash_activity)
         supportActionBar?.hide()
     }
 
     override fun onStart() {
         super.onStart()
+        setContentView(R.layout.splash_activity)
 
-        startMainActivity()
+        BackgroundThreadExecutor.execute { startMainActivity() }
     }
 
     private fun startMainActivity() {

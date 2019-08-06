@@ -10,4 +10,5 @@
     <string name="invalid_bitcoin_address">Invalid Bitcoin address</string>
     <string name="invalid_bitcoin_address_mapping">Invalid Bitcoin address mapping</string>
     <string name="address_status_image_content_description">Address status image</string>
+    <string name="sync">Sync</string>
 </resources>
