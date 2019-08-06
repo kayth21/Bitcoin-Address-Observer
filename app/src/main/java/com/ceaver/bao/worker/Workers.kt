@@ -2,9 +2,11 @@ package com.ceaver.bao.worker
 
 import android.content.Context
 import androidx.work.*
+import com.ceaver.bao.R
 import com.ceaver.bao.addresses.AddressRepository
 import com.ceaver.bao.blockstream.BlockstreamRepository
 import com.ceaver.bao.extensions.getLong
+import com.ceaver.bao.notification.Notification
 import com.ceaver.bao.threading.BackgroundThreadExecutor
 import org.greenrobot.eventbus.EventBus
 
@@ -73,6 +75,16 @@ object Workers {
             val address = AddressRepository.loadAddress(inputData.getLong(ADDRESS_ID)!!)
             val addressResponse = BlockstreamRepository.lookupAddress(address.value)
             val updatedAddress = address.copyFromBlockstreamResponse(addressResponse)
+
+            if (address.isUnchanged() && updatedAddress.isChanged()) {
+                BackgroundThreadExecutor.execute {
+                    val title = "Tx count on address ${address.mapping} changed"
+                    val text = address.value
+                    val image = R.drawable.bitcoin_logo
+                    Notification.notifyStatusChange(title, text, image)
+                }
+            }
+
             AddressRepository.updateAddress(updatedAddress, true)
             return Result.success()
         }

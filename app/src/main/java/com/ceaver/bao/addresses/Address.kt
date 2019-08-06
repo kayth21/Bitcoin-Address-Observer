@@ -63,4 +63,7 @@ data class Address(
     fun copyForReset(): Address {
         return copy(initialTransactionCount = currentTransactionCount)
     }
+
+    fun isUnchanged(): Boolean = addressStatus() == AddressStatus.UNCHANGED
+    fun isChanged(): Boolean = addressStatus() == AddressStatus.CHANGED
 }
