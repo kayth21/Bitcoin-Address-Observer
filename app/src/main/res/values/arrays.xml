@@ -1,0 +1,27 @@
+<resources>
+
+    <string-array name="background_sync_entries">
+        <item>No background synchronisation</item>
+        <item>Every 15 minutes</item>
+        <item>Every 30 minutes</item>
+        <item>Every 1 hour</item>
+        <item>Every 2 hours</item>
+        <item>Every 4 hours</item>
+        <item>Every 1 day</item>
+        <item>Every 2 days</item>
+        <item>Every 1 week</item>
+    </string-array>
+
+    <string-array name="background_sync_values">
+        <item>NONE</item>
+        <item>M15</item>
+        <item>M30</item>
+        <item>H1</item>
+        <item>H2</item>
+        <item>H4</item>
+        <item>D1</item>
+        <item>D2</item>
+        <item>W1</item>
+    </string-array>
+
+</resources>

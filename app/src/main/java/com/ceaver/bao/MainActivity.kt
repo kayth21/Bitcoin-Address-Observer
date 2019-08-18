@@ -1,10 +1,12 @@
 package com.ceaver.bao
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.ceaver.bao.addresses.AddressEvents
+import com.ceaver.bao.preferences.PreferencesActivity
 import com.ceaver.bao.worker.WorkerEvents
 import com.ceaver.bao.worker.Workers
 import kotlinx.android.synthetic.main.main_activity.*
@@ -25,13 +27,13 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         EventBus.getDefault().register(this)
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onPause() {
+        super.onPause()
         EventBus.getDefault().unregister(this)
     }
 
@@ -41,17 +43,21 @@ class MainActivity : AppCompatActivity() {
                 Workers.run()
                 true
             }
+            R.id.mainmenuPreferencesAction -> {
+                startActivity(Intent(this, PreferencesActivity::class.java))
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
 
     @Suppress("UNUSED_PARAMETER")
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: WorkerEvents.Start) {
         enableSyncAction(false)
     }
 
     @Suppress("UNUSED_PARAMETER")
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: WorkerEvents.End) {
         enableSyncAction(true)
     }

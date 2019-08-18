@@ -14,9 +14,9 @@ data class Address(
     @ColumnInfo(name = "value") val value: String,
     @ColumnInfo(name = "mapping") val mapping: String? = null,
     //
-    @ColumnInfo(name = "last_sync_status") val lastSyncStatus: SyncStatus? = null,
-    @ColumnInfo(name = "last_sync_date") val lastSyncDate: LocalDateTime? = null,
-    @ColumnInfo(name = "failure_message") val failureMessage: String? = null,
+    @ColumnInfo(name = "lastSyncStatus") val lastSyncStatus: SyncStatus? = null,
+    @ColumnInfo(name = "lastSyncDate") val lastSyncDate: LocalDateTime? = null,
+    @ColumnInfo(name = "failureMessage") val failureMessage: String? = null,
     //
     @ColumnInfo(name = "initial_transaction_count") val initialTransactionCount: Int? = null,
     @ColumnInfo(name = "current_transaction_count") val currentTransactionCount: Int? = null,

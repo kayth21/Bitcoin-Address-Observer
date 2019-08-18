@@ -7,6 +7,7 @@ import com.ceaver.bao.addresses.AddressRepository
 import com.ceaver.bao.blockstream.BlockstreamRepository
 import com.ceaver.bao.extensions.getLong
 import com.ceaver.bao.notification.Notification
+import com.ceaver.bao.preferences.Preferences
 import com.ceaver.bao.threading.BackgroundThreadExecutor
 import org.greenrobot.eventbus.EventBus
 
@@ -36,7 +37,7 @@ object Workers {
 
     class StartWorker(appContext: Context, workerParams: WorkerParameters) : Worker(appContext, workerParams) {
         override fun doWork(): Result {
-            EventBus.getDefault().post(WorkerEvents.Start())
+            EventBus.getDefault().postSticky(WorkerEvents.Start())
             return Result.success()
         }
     }
@@ -76,7 +77,7 @@ object Workers {
             val addressResponse = BlockstreamRepository.lookupAddress(address.value)
             val updatedAddress = address.copyFromBlockstreamResponse(addressResponse)
 
-            if (address.isUnchanged() && updatedAddress.isChanged()) {
+            if (Preferences.isNotifyOnChange() && address.isUnchanged() && updatedAddress.isChanged()) {
                 BackgroundThreadExecutor.execute {
                     val title = "Tx count on address ${address.mapping} changed"
                     val text = address.value
@@ -96,7 +97,8 @@ object Workers {
 
     class EndWorker(appContext: Context, workerParams: WorkerParameters) : Worker(appContext, workerParams) {
         override fun doWork(): Result {
-            EventBus.getDefault().post(WorkerEvents.End())
+            EventBus.getDefault().removeStickyEvent(WorkerEvents.Start::class.java)
+            EventBus.getDefault().postSticky(WorkerEvents.End())
             return Result.success()
         }
     }
