@@ -5,13 +5,16 @@ import androidx.room.*
 @Dao
 interface AddressDao {
     @Query("select * from address")
-    fun loadAddresses(): List<Address>
+    fun loadAllAddresses(): List<Address>
 
     @Query("select * from address where id = :id")
     fun loadAddress(id: Long): Address
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insertAddress(address: Address) : Long
+
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    fun insertAddresses(addresses: List<Address>): List<Long>
 
     @Update
     fun updateAddress(address: Address)
@@ -21,4 +24,7 @@ interface AddressDao {
 
     @Delete
     fun deleteAddress(address: Address)
+
+    @Query("delete from address")
+    fun deleteAllAddresses()
 }

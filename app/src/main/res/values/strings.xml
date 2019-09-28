@@ -12,4 +12,11 @@
     <string name="address_status_image_content_description">Address status image</string>
     <string name="sync">Sync</string>
     <string name="preferences">Preferences</string>
+    <string name="exportTitle">Export</string>
+    <string name="exportIntro">Exports all your addresses to a csv file in your download/bao directory.</string>
+    <string name="importTitle">Import</string>
+    <string name="overflow">Overflow</string>
+    <string name="exportButton">Export</string>
+    <string name="importIntro">Imports all addresses found in your download directory (download/bao/addresses.csv)</string>
+    <string name="importButton">Import</string>
 </resources>

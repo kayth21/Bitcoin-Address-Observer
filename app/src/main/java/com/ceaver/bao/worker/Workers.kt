@@ -55,7 +55,7 @@ object Workers {
         override fun doWork(): Result {
             val addressId = inputData.getLong(ADDRESS_ID)
             if (addressId == null) {
-                AddressRepository.updateAddresses(AddressRepository.loadAddresses().map { it.copyForReload() }, true)
+                AddressRepository.updateAddresses(AddressRepository.loadAllAddresses().map { it.copyForReload() }, true)
             } else {
                 AddressRepository.updateAddress(AddressRepository.loadAddress(addressId).copyForReload(), true)
             }
@@ -64,7 +64,7 @@ object Workers {
     }
 
     private fun updateAddresses(addressId: Long?): List<OneTimeWorkRequest> {
-        val addresses = if (addressId == null) AddressRepository.loadAddresses() else listOf(AddressRepository.loadAddress(addressId))
+        val addresses = if (addressId == null) AddressRepository.loadAllAddresses() else listOf(AddressRepository.loadAddress(addressId))
         return addresses.map {
             val data = Data.Builder().putLong(ADDRESS_ID, it.id).build()
             OneTimeWorkRequestBuilder<UpdateAddressWorker>().setInputData(data).build()

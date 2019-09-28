@@ -20,12 +20,12 @@ object AddressRepository {
 
     // LOAD ALL ADDRESSES //
 
-    fun loadAddresses(): List<Address> {
-        return getAddressDao().loadAddresses()
+    fun loadAllAddresses(): List<Address> {
+        return getAddressDao().loadAllAddresses()
     }
 
-    fun loadAddressesAsync(callbackInMainThread: Boolean = false, callback: (List<Address>) -> Unit) {
-        BackgroundThreadExecutor.execute { handleCallback(callbackInMainThread, callback, loadAddresses()) }
+    fun loadAllAddressesAsync(callbackInMainThread: Boolean = false, callback: (List<Address>) -> Unit) {
+        BackgroundThreadExecutor.execute { handleCallback(callbackInMainThread, callback, loadAllAddresses()) }
     }
 
     // SAVE ADDRESS //
@@ -59,6 +59,13 @@ object AddressRepository {
                 handleCallback(callbackInMainThread, callback, addressId)
         }
     }
+
+    fun insertAddresses(addresses: List<Address>): List<Long> {
+        val addressIds = getAddressDao().insertAddresses(addresses)
+        getEventbus().post(AddressEvents.Insert()) // TODO check argument
+        return addressIds
+    }
+
     // UPDATE ADDRESS //
 
     fun updateAddress(address: Address, suppressReload: Boolean = false): Long {
@@ -107,6 +114,13 @@ object AddressRepository {
             if (callback != null)
                 handleCallback(callbackInMainThread, callback, addressId)
         }
+    }
+
+    // DELETE ADDRESSES //
+
+    fun deleteAllAddresses(suppressReload: Boolean = false) {
+        getAddressDao().deleteAllAddresses()
+        getEventbus().post(AddressEvents.Delete(suppressReload = suppressReload))
     }
 
     // HELPER //

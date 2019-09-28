@@ -65,7 +65,7 @@ class AddressListFragment : Fragment() {
     }
 
     private fun loadAllAddresses() {
-        AddressRepository.loadAddressesAsync(true) { onAllAddressesLoaded(it) }
+        AddressRepository.loadAllAddressesAsync(true) { onAllAddressesLoaded(it) }
     }
 
     private fun onAllAddressesLoaded(addresss: List<Address>) {

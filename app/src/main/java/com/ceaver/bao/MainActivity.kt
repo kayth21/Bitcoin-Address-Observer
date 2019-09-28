@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import com.ceaver.bao.addresses.AddressEvents
+import com.ceaver.bao.backup.export.ExportFragment
+import com.ceaver.bao.backup.import.ImportFragment
 import com.ceaver.bao.preferences.PreferencesActivity
 import com.ceaver.bao.worker.WorkerEvents
 import com.ceaver.bao.worker.Workers
@@ -39,16 +42,28 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem) =
         when (item.itemId) {
-            R.id.mainmenuSyncAction -> {
+            R.id.mainMenuSyncAction -> {
                 Workers.run()
                 true
             }
-            R.id.mainmenuPreferencesAction -> {
+            R.id.mainMenuPreferencesAction -> {
                 startActivity(Intent(this, PreferencesActivity::class.java))
+                true
+            }
+            R.id.mainMenuImportAction -> {
+                showFragment(ImportFragment())
+                true
+            }
+            R.id.mainMenuExportAction -> {
+                showFragment(ExportFragment())
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+
+    private fun showFragment(dialogFragment: DialogFragment) {
+        dialogFragment.show(supportFragmentManager, dialogFragment.javaClass.canonicalName)
+    }
 
     @Suppress("UNUSED_PARAMETER")
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
@@ -77,7 +92,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun enableSyncAction(enable: Boolean) {
-        val syncAction = mainActivityToolbar.menu.findItem(R.id.mainmenuSyncAction)
+        val syncAction = mainActivityToolbar.menu.findItem(R.id.mainMenuSyncAction)
         syncAction.icon.mutate().alpha = if (enable) 255 else 130
         syncAction.isEnabled = enable
     }
