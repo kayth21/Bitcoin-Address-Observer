@@ -6,11 +6,14 @@ import androidx.room.TypeConverters
 import com.ceaver.bao.Application
 import com.ceaver.bao.addresses.Address
 import com.ceaver.bao.addresses.AddressDao
+import com.ceaver.bao.logging.Log
+import com.ceaver.bao.logging.LogDao
 
-@androidx.room.Database(entities = [Address::class], version = 1, exportSchema = false)
+@androidx.room.Database(entities = [Address::class, Log::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class Database : RoomDatabase() {
     abstract fun addressDao(): AddressDao
+    abstract fun logDao(): LogDao
 
     companion object {
         private var INSTANCE: Database? = null

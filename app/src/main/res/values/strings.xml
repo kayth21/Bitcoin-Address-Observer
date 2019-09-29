@@ -19,4 +19,5 @@
     <string name="exportButton">Export</string>
     <string name="importIntro">Imports all addresses found in your download directory (download/bao/addresses.csv)</string>
     <string name="importButton">Import</string>
+    <string name="logging">Logging</string>
 </resources>

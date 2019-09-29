@@ -3,6 +3,9 @@ package com.ceaver.bao.backup
 import android.os.Environment
 import com.ceaver.bao.addresses.Address
 import com.ceaver.bao.addresses.AddressRepository
+import com.ceaver.bao.logging.LogCategory
+import com.ceaver.bao.logging.LogRepository
+import com.ceaver.bao.preferences.Preferences
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 import org.apache.commons.csv.CSVPrinter
@@ -26,21 +29,23 @@ object BackupManager {
         val addresses = AddressRepository.loadAllAddresses()
         if (addresses.isEmpty())
             return Result.NO_DATA_FOUND
-        try {
-            tryExport(addresses)
-            return Result.SUCCESS
+        return try {
+            val filePath = tryExport(addresses)
+            getLogRepository()?.insertLogAsync("Export successful to $filePath", LogCategory.EXPORT)
+            Result.SUCCESS
         } catch (e: IOException) {
-            return Result.EXCEPTION
+            Result.EXCEPTION
         }
     }
 
     @Throws(IOException::class)
-    private fun tryExport(addresses: List<Address>) {
+    private fun tryExport(addresses: List<Address>): String {
         val targetDirectory = getOrCreateDirectory()
         val filePath = targetDirectory.path + "/" + ADDRESSES_FILE_NAME
         val csvPrinter = CSVPrinter(Files.newBufferedWriter(Paths.get(filePath)), CSVFormat.DEFAULT)
         for (address in addresses) csvPrinter.printRecord(address.value, address.mapping)
         csvPrinter.flush()
+        return filePath
     }
 
     @Throws(IOException::class)
@@ -49,11 +54,12 @@ object BackupManager {
         val filePath = sourceDirectory.path + "/" + ADDRESSES_FILE_NAME
         if (!File(filePath).exists())
             return Result.NO_DATA_FOUND
-        try {
+        return try {
             tryImport(sourceDirectory)
-            return Result.SUCCESS
+            getLogRepository()?.insertLogAsync("Import successful from $filePath", LogCategory.IMPORT)
+            Result.SUCCESS
         } catch (e: IOException) {
-            return Result.EXCEPTION
+            Result.EXCEPTION
         }
     }
 
@@ -71,5 +77,7 @@ object BackupManager {
         if (!targetDirectory.exists()) targetDirectory.mkdir()
         return targetDirectory
     }
+
+    private fun getLogRepository(): LogRepository? = if (Preferences.isLoggingEnabled()) LogRepository else null
 }
 

@@ -9,7 +9,11 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.work.*
 import com.ceaver.bao.Application
 import com.ceaver.bao.R
+import com.ceaver.bao.extensions.getBoolean
+import com.ceaver.bao.extensions.getEnabledOrDisabledText
 import com.ceaver.bao.extensions.getString
+import com.ceaver.bao.logging.LogCategory
+import com.ceaver.bao.logging.LogRepository
 import com.ceaver.bao.worker.Workers
 
 const val BACKGROUND_PROCESS_ID = "com.ceaver.bao.preferences.PreferencesActivity.periodicBackgroundProcessId"
@@ -22,9 +26,19 @@ class PreferencesActivity : AppCompatActivity(), SharedPreferences.OnSharedPrefe
         supportFragmentManager.beginTransaction().replace(R.id.preferences, PreferencesFragment()).commit()
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
         when (key) {
-            "preferencesSyncInBackground" -> onSyncInBackgroundChanged(BackgroundSyncInterval.valueOf(sharedPreferences!!.getString(key)!!))
+            "preferencesSyncInBackground" -> onSyncInBackgroundChanged(BackgroundSyncInterval.valueOf(sharedPreferences.getString(key)!!))
+        }
+        if(Preferences.isLoggingEnabled() || key == "preferencesLoggingEnabled") {
+            val message = when (key) {
+                "preferencesSyncOnStartup" -> "Sync on startup ${sharedPreferences.getBoolean(key)!!.getEnabledOrDisabledText()}"
+                "preferencesSyncInBackground" -> "Sync in background changed to ${BackgroundSyncInterval.valueOf(sharedPreferences.getString(key)!!).toHumanReadableString()}"
+                "preferencesNotifyOnChange" -> "Notify on address change ${sharedPreferences.getBoolean(key)!!.getEnabledOrDisabledText()}"
+                "preferencesLoggingEnabled" -> "Logging ${sharedPreferences.getBoolean(key)!!.getEnabledOrDisabledText()}"
+                else -> throw IllegalStateException()
+            }
+            LogRepository.insertLogAsync(message, LogCategory.SETTINGS)
         }
     }
 

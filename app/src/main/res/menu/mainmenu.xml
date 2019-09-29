@@ -31,6 +31,11 @@
                     android:icon="@drawable/export_icon"
                     android:title="@string/exportTitle"
                     app:showAsAction="never" />
+            <item
+                    android:id="@+id/mainMenuLoggingAction"
+                    android:icon="@drawable/logging"
+                    android:title="@string/logging"
+                    app:showAsAction="never"/>
         </menu>
     </item>
 </menu>

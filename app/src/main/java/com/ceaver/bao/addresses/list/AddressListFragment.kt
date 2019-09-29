@@ -16,6 +16,9 @@ import com.ceaver.bao.addresses.Address
 import com.ceaver.bao.addresses.AddressEvents
 import com.ceaver.bao.addresses.AddressRepository
 import com.ceaver.bao.addresses.input.AddressInputFragment
+import com.ceaver.bao.logging.LogCategory
+import com.ceaver.bao.logging.LogRepository
+import com.ceaver.bao.preferences.Preferences
 import kotlinx.android.synthetic.main.address_list_fragment.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -88,13 +91,20 @@ class AddressListFragment : Fragment() {
             val selectedAddress = addressListAdapter.currentLongClickAddress!!
             when (menuItem.itemId) {
                 AddressListAdapter.CONTEXT_MENU_EDIT_ITEM_ID -> showDialogFragment(AddressInputFragment(), AddressInputFragment.FRAGMENT_TAG, AddressInputFragment.ADDRESS_ID, selectedAddress.id)
-                AddressListAdapter.CONTEXT_MENU_DELETE_ITEM_ID -> AddressRepository.deleteAddressAsync(selectedAddress)
+                AddressListAdapter.CONTEXT_MENU_DELETE_ITEM_ID -> deleteAddress(selectedAddress)
                 AddressListAdapter.CONTEXT_MENU_RESET_ITEM_ID -> AddressRepository.updateAddressAsync(selectedAddress.copyForReset())
-                AddressListAdapter.CONTEXT_MENU_SHOW_ITEM_ID -> startActivity( Intent(Intent.ACTION_VIEW, Uri.parse("https://oxt.me/address/${selectedAddress.value}")));
+                AddressListAdapter.CONTEXT_MENU_SHOW_ITEM_ID -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://oxt.me/address/${selectedAddress.value}")));
                 else -> throw IllegalStateException()
             }
         }
         return super.onContextItemSelected(menuItem)
+    }
+
+    private fun deleteAddress(selectedAddress: Address) {
+        AddressRepository.deleteAddressAsync(selectedAddress)
+        if (Preferences.isLoggingEnabled()) {
+            LogRepository.insertLogAsync("Deleted address ${selectedAddress.value.take(20)}...", LogCategory.DELETE)
+        }
     }
 
     private fun showDialogFragment(dialogFragment: DialogFragment, fragmentTag: String, addressIdKey: String, addressIdValue: Long) {

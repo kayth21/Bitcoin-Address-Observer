@@ -29,4 +29,14 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+            app:title="Logging">
+
+        <SwitchPreferenceCompat
+                app:key="preferencesLoggingEnabled"
+                app:defaultValue="false"
+                app:title="Enable Logging"/>
+
+    </PreferenceCategory>
+
 </androidx.preference.PreferenceScreen>

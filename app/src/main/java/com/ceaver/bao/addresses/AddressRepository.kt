@@ -62,7 +62,7 @@ object AddressRepository {
 
     fun insertAddresses(addresses: List<Address>): List<Long> {
         val addressIds = getAddressDao().insertAddresses(addresses)
-        getEventbus().post(AddressEvents.Insert()) // TODO check argument
+        getEventbus().post(AddressEvents.Insert())
         return addressIds
     }
 

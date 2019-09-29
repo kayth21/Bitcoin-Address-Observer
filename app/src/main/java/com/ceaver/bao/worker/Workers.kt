@@ -6,10 +6,15 @@ import com.ceaver.bao.R
 import com.ceaver.bao.addresses.AddressRepository
 import com.ceaver.bao.blockstream.BlockstreamRepository
 import com.ceaver.bao.extensions.getLong
+import com.ceaver.bao.logging.LogCategory
+import com.ceaver.bao.logging.LogRepository
 import com.ceaver.bao.notification.Notification
 import com.ceaver.bao.preferences.Preferences
 import com.ceaver.bao.threading.BackgroundThreadExecutor
 import org.greenrobot.eventbus.EventBus
+import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
+import java.util.*
 
 private const val ADDRESS_ID = "com.ceaver.bao.worker.Workers.addressId"
 private const val UNIQUE_WORK_ID = "com.ceaver.bao.worker.Workers.uniqueWorkId"
@@ -74,6 +79,12 @@ object Workers {
     class UpdateAddressWorker(appContext: Context, workerParams: WorkerParameters) : Worker(appContext, workerParams) {
         override fun doWork(): Result {
             val address = AddressRepository.loadAddress(inputData.getLong(ADDRESS_ID)!!)
+
+            val logIdentifier = if (Preferences.isLoggingEnabled()) UUID.randomUUID() else null
+            if (logIdentifier != null) {
+                LogRepository.insertLog("Check ${address.value.take(20)}...", LogCategory.CHECK, logIdentifier)
+            }
+
             val addressResponse = BlockstreamRepository.lookupAddress(address.value)
             val updatedAddress = address.copyFromBlockstreamResponse(addressResponse)
 
@@ -83,10 +94,21 @@ object Workers {
                     val text = address.value
                     val image = R.drawable.bitcoin_logo
                     Notification.notifyStatusChange(title, text, image)
+                    if(Preferences.isLoggingEnabled()) {
+                        LogRepository.insertLogAsync("Notified address change ${address.value.take(20)}...", LogCategory.NOTIFY)
+                    }
                 }
             }
 
             AddressRepository.updateAddress(updatedAddress, true)
+
+            if (logIdentifier != null) {
+                val log = LogRepository.loadLog(logIdentifier)
+                val duration = log.timestamp.until(LocalDateTime.now(), ChronoUnit.MILLIS)
+                val logResult = if (addressResponse.isSuccessful()) " success ($duration ms)" else " failed ($duration ms)\n${addressResponse.failureText()}"
+                LogRepository.updateLog(log.copy(message = log.message + logResult))
+            }
+
             return Result.success()
         }
     }

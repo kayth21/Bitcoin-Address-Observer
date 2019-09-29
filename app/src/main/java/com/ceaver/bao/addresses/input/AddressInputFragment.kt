@@ -10,6 +10,9 @@ import androidx.lifecycle.ViewModelProviders
 import com.ceaver.bao.R
 import com.ceaver.bao.extensions.afterTextChanged
 import com.ceaver.bao.extensions.registerInputValidator
+import com.ceaver.bao.logging.LogCategory
+import com.ceaver.bao.logging.LogRepository
+import com.ceaver.bao.preferences.Preferences
 import kotlinx.android.synthetic.main.address_input_fragment.*
 
 class AddressInputFragment : DialogFragment() {
@@ -71,6 +74,14 @@ class AddressInputFragment : DialogFragment() {
     }
 
     private fun onEndSave() {
+        if(Preferences.isLoggingEnabled()) {
+            val address = addressInputFragmentAddressField.text.toString()
+            if(lookupAddressId() == null) {
+                LogRepository.insertLogAsync("Added address ${address.take(20)}...", LogCategory.INSERT)
+            } else {
+                LogRepository.insertLogAsync("Modified address ${address.take(20)}...", LogCategory.MODIFY)
+            }
+        }
         dismiss()
     }
 

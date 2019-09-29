@@ -8,4 +8,5 @@ object Preferences {
 
     fun isSyncOnStartup() = PreferenceManager.getDefaultSharedPreferences(Application.appContext).getBoolean("preferencesSyncOnStartup")!!
     fun isNotifyOnChange() = PreferenceManager.getDefaultSharedPreferences(Application.appContext).getBoolean("preferencesNotifyOnChange")!!
+    fun isLoggingEnabled() = PreferenceManager.getDefaultSharedPreferences(Application.appContext).getBoolean("preferencesLoggingEnabled")!!
 }

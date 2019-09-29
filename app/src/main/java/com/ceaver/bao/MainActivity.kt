@@ -9,6 +9,7 @@ import androidx.fragment.app.DialogFragment
 import com.ceaver.bao.addresses.AddressEvents
 import com.ceaver.bao.backup.export.ExportFragment
 import com.ceaver.bao.backup.import.ImportFragment
+import com.ceaver.bao.logging.LogListActivity
 import com.ceaver.bao.preferences.PreferencesActivity
 import com.ceaver.bao.worker.WorkerEvents
 import com.ceaver.bao.worker.Workers
@@ -58,6 +59,10 @@ class MainActivity : AppCompatActivity() {
                 showFragment(ExportFragment())
                 true
             }
+            R.id.mainMenuLoggingAction -> {
+                startActivity(Intent(this, LogListActivity::class.java))
+            true
+        }
             else -> super.onOptionsItemSelected(item)
         }
 

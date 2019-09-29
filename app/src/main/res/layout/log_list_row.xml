@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:paddingBottom="2sp"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:paddingTop="2sp">
+
+    <TextView
+            android:id="@+id/logListRowTimestampValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:layout_alignParentTop="true"/>
+
+    <TextView
+            android:id="@+id/logListRowIdValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:textSize="10sp"
+            android:layout_alignParentTop="true"
+            tools:ignore="RelativeOverlap,SmallSp"/>
+
+    <TextView
+            android:id="@+id/logListRowMessageValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:layout_below="@id/logListRowTimestampValue"/>
+
+</RelativeLayout>
