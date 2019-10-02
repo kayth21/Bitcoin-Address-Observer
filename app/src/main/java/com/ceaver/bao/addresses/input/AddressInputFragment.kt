@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,9 +39,18 @@ class AddressInputFragment : DialogFragment() {
         val addressId = lookupAddressId()
         val viewModel = lookupViewModel().apply { init(addressId) }
 
+        modifyView(addressId)
         bindActions(viewModel)
         observeStatus(viewModel)
         observeDataReady(viewModel)
+    }
+
+    private fun modifyView(addressId: Long?) {
+        if (addressId != null) {
+            addressInputFragmentAddressField.setInputType(InputType.TYPE_NULL);
+            addressInputFragmentAddressField.setTextIsSelectable(true);
+            addressInputFragmentAddressField.setKeyListener(null);
+        }
     }
 
     private fun lookupAddressId(): Long? = arguments?.getLong(ADDRESS_ID).takeUnless { it == 0L }
@@ -69,7 +79,7 @@ class AddressInputFragment : DialogFragment() {
         }
 
         val btcAddress = result.contents.substringAfter(":").substringBefore("?")
-        BackgroundThreadExecutor.execute { Handler(Looper.getMainLooper()).post {  addressInputFragmentAddressField.setText(btcAddress) } }
+        BackgroundThreadExecutor.execute { Handler(Looper.getMainLooper()).post { addressInputFragmentAddressField.setText(btcAddress) } }
         Toast.makeText(this.context, "Scanned: " + result.contents, Toast.LENGTH_LONG).show()
     }
 
@@ -125,6 +135,7 @@ class AddressInputFragment : DialogFragment() {
     }
 
     private fun checkSaveButton(): Boolean {
-        return addressInputFragmentAddressField.error == null && addressInputFragmentAddressMappingValue.error == null
+        return addressInputFragmentAddressField.error == null && addressInputFragmentAddressMappingValue.error == null &&
+                (addressInputFragmentAddressField.text.toString() != lookupViewModel().address.value!!.value || addressInputFragmentAddressMappingValue.text.toString() != lookupViewModel().address.value!!.mapping)
     }
 }

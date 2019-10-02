@@ -89,13 +89,6 @@ class MainActivity : AppCompatActivity() {
             Workers.run(event.addressId)
     }
 
-    @Suppress("UNUSED_PARAMETER")
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: AddressEvents.Update) {
-        if (!event.suppressReload)
-            Workers.run(event.addressId)
-    }
-
     private fun enableSyncAction(enable: Boolean) {
         val syncAction = mainActivityToolbar.menu.findItem(R.id.mainMenuSyncAction)
         syncAction.icon.mutate().alpha = if (enable) 255 else 130
