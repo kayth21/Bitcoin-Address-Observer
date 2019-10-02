@@ -20,4 +20,5 @@
     <string name="importIntro">Imports all addresses found in your download directory (download/bao/addresses.csv)</string>
     <string name="importButton">Import</string>
     <string name="logging">Logging</string>
+    <string name="scan_qr_code">Scan QR Code</string>
 </resources>

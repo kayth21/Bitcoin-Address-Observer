@@ -57,4 +57,7 @@ dependencies {
     // APACHE COMMONS CSV
     implementation 'org.apache.commons:commons-csv:1.6'
 
+    // BARCODE SCANNER
+    implementation 'com.journeyapps:zxing-android-embedded:4.0.2'
+
 }

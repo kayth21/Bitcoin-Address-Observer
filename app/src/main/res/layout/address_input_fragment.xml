@@ -47,16 +47,26 @@
 
     <EditText
             android:id="@+id/addressInputFragmentAddressField"
-            android:layout_width="300dp"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:enabled="false"
-            android:textSize="12sp"
-            android:importantForAutofill="no"
             android:hint="@string/bitcoin_address_hint"
+            android:importantForAutofill="no"
             android:inputType="text"
-            app:layout_constraintTop_toBottomOf="@+id/addressInputFragmentAddressLabel"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addressInputFragmentAddressLabel" />
+
+    <ImageView
+            android:id="@+id/addressInputFragmentQrButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/scan_qr_code"
+            app:layout_constraintBottom_toBottomOf="@+id/addressInputFragmentAddressField"
+            app:layout_constraintStart_toEndOf="@+id/addressInputFragmentAddressField"
+            app:layout_constraintTop_toTopOf="@+id/addressInputFragmentAddressField"
+            android:contentDescription="@string/scan_qr_code" />
 
     <!-- ADDRESS MAPPING -->
 
