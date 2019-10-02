@@ -17,10 +17,25 @@
 
         <menu>
             <item
-                    android:id="@+id/mainMenuPreferencesAction"
-                    android:icon="@drawable/preferences"
-                    android:title="@string/preferences"
-                    app:showAsAction="never" />
+                    android:id="@+id/mainmenuManualAction"
+                    android:icon="@drawable/help"
+                    android:title="@string/manual"
+                    app:showAsAction="never"/>
+            <item
+                    android:id="@+id/mainmenuFeedbackAction"
+                    android:icon="@drawable/feedback"
+                    android:title="@string/feedback"
+                    app:showAsAction="never"/>
+            <item
+                    android:id="@+id/mainmenuContributeAction"
+                    android:icon="@drawable/contribute"
+                    android:title="@string/contribute"
+                    app:showAsAction="never"/>
+            <item
+                    android:id="@+id/mainmenuCreditsAction"
+                    android:icon="@drawable/credits"
+                    android:title="@string/credits"
+                    app:showAsAction="never"/>
             <item
                     android:id="@+id/mainMenuImportAction"
                     android:icon="@drawable/import_icon"
@@ -36,6 +51,11 @@
                     android:icon="@drawable/logging"
                     android:title="@string/logging"
                     app:showAsAction="never"/>
+            <item
+                    android:id="@+id/mainMenuPreferencesAction"
+                    android:icon="@drawable/preferences"
+                    android:title="@string/preferences"
+                    app:showAsAction="never" />
         </menu>
     </item>
 </menu>

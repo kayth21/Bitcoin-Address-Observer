@@ -9,7 +9,11 @@ import androidx.fragment.app.DialogFragment
 import com.ceaver.bao.addresses.AddressEvents
 import com.ceaver.bao.backup.export.ExportFragment
 import com.ceaver.bao.backup.import.ImportFragment
+import com.ceaver.bao.contribute.ContributeFragment
+import com.ceaver.bao.credits.CreditsFragment
+import com.ceaver.bao.feedback.FeedbackFragment
 import com.ceaver.bao.logging.LogListActivity
+import com.ceaver.bao.manual.ManualFragment
 import com.ceaver.bao.preferences.PreferencesActivity
 import com.ceaver.bao.worker.WorkerEvents
 import com.ceaver.bao.worker.Workers
@@ -57,6 +61,22 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.mainMenuExportAction -> {
                 showFragment(ExportFragment())
+                true
+            }
+            R.id.mainmenuFeedbackAction -> {
+                showFragment(FeedbackFragment())
+                true
+            }
+            R.id.mainmenuContributeAction -> {
+                showFragment(ContributeFragment())
+                true
+            }
+            R.id.mainmenuManualAction -> {
+                showFragment(ManualFragment())
+                true
+            }
+            R.id.mainmenuCreditsAction -> {
+                showFragment(CreditsFragment())
                 true
             }
             R.id.mainMenuLoggingAction -> {

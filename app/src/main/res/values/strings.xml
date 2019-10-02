@@ -21,4 +21,24 @@
     <string name="importButton">Import</string>
     <string name="logging">Logging</string>
     <string name="scan_qr_code">Scan QR Code</string>
+    <string name="feedback">Feedback</string>
+    <string name="credits">Credits</string>
+    <string name="manual">How it works</string>
+    <string name="feedbackIntro">Do you have any questions, feedback, improvements, bug reports or you are just looking for friends? :) Please get in touch with me:</string>
+    <string name="contribute">Contribute</string>
+    <string name="contributeIntro">Bitcoin Node Observer has no adds and will be available for free at any time.\n\nGoogle doesn\'t allow it to publish a Bitcoin donation address because of their payment policy. :(
+        \n\nBut this software is open source, feel free to join the project on Github or contact me and help me improving this app in any other way. More information on Github:</string>
+    <string name="credits_intro">This app uses images and services which are available for free, but should be mentioned somewhere. Here we do. Thanks for your great work.</string>
+    <string name="manual_intro">Bitcoin Address Observer let you observe any Bitcoin address and shows you if something happens on the observed address.
+        \n\nWhen an address is added, the app does a lookup on the current transaction count recorded on the blockchain and stores this locally. This counter is then used to detect any future change.
+        \n\nDon\'t forget to tell the app when you noticed the change by reset the local transaction counter to the remote one by long click on the address.
+        \n\nIt uses public API from oxt.me to get latest onchain data.
+        \n\nPlease note, if you want Bitcoin Address Observer to notifiy you on transaction count change on your addresses, you have to enable this feature in preferences.\n\n
+    </string>
+    <string name="contribute_github">https://github.com/kayth1/Bitcoin-Address-Observer</string>
+    <string name="credits_bitnodes">Blockchain Explorer: https://oxt.me</string>
+    <string name="credits_icons">Icons: https://www.deviantart.com/taytel/art/ORB-Icons-87934875</string>
+    <string name="twitter_kayth1234">Twitter: kayth1234</string>
+    <string name="e_mail_thomas_kayser_com">E-Mail: thomas@kayser.com</string>
+    <string name="telegram_kayth">Telegram: @kayth</string>
 </resources>
